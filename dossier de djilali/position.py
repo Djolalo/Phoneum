@@ -1,16 +1,17 @@
 import androidhelper, time
 droid = androidhelper.Android()
 droid.startLocating()
-time.sleep(15)
-loc = droid.readLocation().result
-if loc = {}:
-  loc = getLastKnownLocation().result
-if loc != {}:
-  try:
-    n = loc['gps']
-  except KeyError:
-    n = loc['network']
-  la = n['latitude']
-  lo = n['longitude']
-  address = droid.geocode(la, lo).result
-droid.stopLocating()
+print('reading GPS ...')
+event=droid.eventWaitFor('location', 10000)
+while 1:
+    try :
+        provider = event.result['data']['gps']['provider']
+        if provider == 'gps':
+            lat = str(event['data']['gps']['latitude'])
+            lng = str(event['data']['gps']['longitude'])
+            latlng = 'lat: ' + lat + ' lng: ' + lng
+            print(latlng)
+            break
+        else: continue
+    except KeyError:
+       continue

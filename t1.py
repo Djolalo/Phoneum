@@ -1,6 +1,6 @@
 from http import server
 import socket
-ip_port = ('10.0.2.15',10055)#ip et port
+ip_port = ('10.40.59.155',10055)#ip et port
 s = socket.socket()
 s.connect(ip_port)
 
